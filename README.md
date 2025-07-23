@@ -1,8 +1,6 @@
 # AI Agent CLI for SQL Querying with Gemini LLM
 
-This project implements a command-line AI agent that allows users to interact with an SQLite database through natural language questions. It uses Google’s Gemini Flash large language model (LLM) to convert user questions into SQL queries, executes them on a local SQLite database, and returns formatted results.
-
----
+This project implements a command-line AI agent that allows users to interact with an SQLite database through natural language questions. It uses Google's Gemini Flash large language model (LLM) to convert user questions into SQL queries, executes them on a local SQLite database, and returns formatted results.
 
 ## Overview
 
@@ -21,27 +19,25 @@ The `run_agent.py` script automates the entire workflow:
    - `product_level_total_sales_metrics`  
 
 3. **Data Loading and Cleaning**  
-   - Loads raw CSV files from `raw/` directory.  
-   - Cleans and preprocesses data (date parsing, boolean conversions).  
-   - Saves cleaned CSV files to `clean/` directory.  
-   - Loads cleaned CSV files for database insertion.
+   - Loads raw CSV files from `raw/` directory  
+   - Cleans and preprocesses data (date parsing, boolean conversions)  
+   - Saves cleaned CSV files to `clean/` directory  
+   - Loads cleaned CSV files for database insertion
 
 4. **Populating the Database**  
    Inserts the cleaned data into the respective SQLite tables, replacing any existing data.
 
 5. **Configuring Gemini Flash LLM**  
-   - Reads the Google API key from the environment variable `GOOGLE_API_KEY`.  
-   - Initializes the Gemini LLM client.
+   - Reads the Google API key from the environment variable `GOOGLE_API_KEY`  
+   - Initializes the Gemini LLM client
 
 6. **Interactive CLI for Querying**  
-   - Shows the database schema for reference.  
-   - Accepts user natural language questions.  
-   - Converts questions to SQL queries via Gemini LLM.  
-   - Executes SQL queries on the database.  
-   - Formats and outputs results interactively with simulated typing effect.  
-   - Supports exit by typing `exit`.
-
----
+   - Shows the database schema for reference  
+   - Accepts user natural language questions  
+   - Converts questions to SQL queries via Gemini LLM  
+   - Executes SQL queries on the database  
+   - Formats and outputs results interactively with simulated typing effect  
+   - Supports exit by typing `exit`
 
 ## How It Works (Step-by-Step)
 
@@ -55,9 +51,9 @@ The `run_agent.py` script automates the entire workflow:
    CSV files located in `raw/` are loaded into Pandas DataFrames.
 
 4. **Data Cleaning**  
-   - Converts date strings to datetime objects.  
-   - Converts eligibility flags to integers (0 or 1).  
-   - Saves cleaned data to `clean/` folder.
+   - Converts date strings to datetime objects  
+   - Converts eligibility flags to integers (0 or 1)  
+   - Saves cleaned data to `clean/` folder
 
 5. **Populate SQLite Database**  
    Inserts the cleaned data into SQLite tables, replacing existing data.
@@ -68,19 +64,15 @@ The `run_agent.py` script automates the entire workflow:
 7. **Interactive CLI**  
    The user enters natural language questions.  
    The system:  
-   - Retrieves database schema for context.  
-   - Prompts Gemini LLM to generate SQL queries based on the user question and schema.  
-   - Executes the generated SQL on the SQLite database.  
-   - Formats and displays the answer back to the user.
-
----
+   - Retrieves database schema for context  
+   - Prompts Gemini LLM to generate SQL queries based on the user question and schema  
+   - Executes the generated SQL on the SQLite database  
+   - Formats and displays the answer back to the user
 
 ## Prerequisites
 
 - Python 3.8 or later  
 - Google API Key with access to Gemini LLM
-
----
 
 ## Setup and Running Instructions
 
@@ -89,57 +81,57 @@ The `run_agent.py` script automates the entire workflow:
 ```bash
 git clone https://github.com/Santhosh071/ai_agent.git
 cd ai_agent
+```
 
-2. Prepare Data Files
-Place the following raw CSV files into the raw/ directory:
+### 2. Prepare Data Files
 
-product_level_eligibility_table_improved.csv
+Place the following raw CSV files into the `raw/` directory:
 
-product_level_ad_sales_and_metrics_improved.csv
+- `product_level_eligibility_table_improved.csv`
+- `product_level_ad_sales_and_metrics_improved.csv`
+- `product_level_total_sales_and_metrics_improved.csv`
 
-product_level_total_sales_and_metrics_improved.csv
+### 3. Set the Google API Key
 
-3. Set the Google API Key
 Before running the script, export your Google API key as an environment variable:
 
-On Linux/macOS:
+**On Linux/macOS:**
 
-bash
-Copy
-Edit
+```bash
 export GOOGLE_API_KEY="your_google_api_key_here"
-On Windows (PowerShell):
+```
 
-powershell
-Copy
-Edit
+**On Windows (PowerShell):**
+
+```powershell
 $env:GOOGLE_API_KEY="your_google_api_key_here"
-Note: Never hardcode your API key directly into the code for security reasons.
+```
 
-4. Run the Script
-bash
-Copy
-Edit
+**Note:** Never hardcode your API key directly into the code for security reasons.
+
+### 4. Run the Script
+
+```bash
 python run_agent.py
+```
+
 You will see the database schema and be prompted to enter your natural language questions.
 
 Type queries like:
 
-What is my total sales?
+- What is my total sales?
+- Show the ad spend and clicks for item 12345.
+- Calculate the RoAS for last month.
 
-Show the ad spend and clicks for item 12345.
+Type `exit` to quit.
 
-Calculate the RoAS for last month.
+## Project Structure
 
-Type exit to quit.
-
-Project Structure
-graphql
-Copy
-Edit
+```
 .
 ├── raw/                  # Input raw CSV data files
 ├── clean/                # Cleaned CSV files (generated by script)
 ├── ecommerce_data.db     # SQLite database file (generated)
 ├── run_agent.py          # Main script to run AI agent CLI
 ├── README.md             # Project documentation
+```
